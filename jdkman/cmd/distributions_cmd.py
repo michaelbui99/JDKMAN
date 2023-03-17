@@ -1,9 +1,6 @@
 import click
-from enum import Enum
 
-
-class SupportedDistributions(Enum):
-    AZUL = 'Azul'
+from distributions.supported_distributions import SupportedDistributions
 
 
 @click.command()

@@ -1,7 +1,7 @@
 import platform
 
 import click
-from cmd.supported_distributions import distributions
+from cmd.distributions_cmd import distributions
 
 
 @click.group()
