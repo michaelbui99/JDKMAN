@@ -20,7 +20,7 @@ class UnableToResolveException(Exception):
 class DownloadUrlResolver:
     def __init__(self):
         self.download_url_root = 'https://cdn.azul.com/zulu/bin/'
-        self.scraper = AzulVersionScraper()
+        self.scraper = AzulZuluVersionScraper()
 
     def get_url(self, version: str, platform: Platform) -> str:
         # Example package version: 17.0.6+10  --> 17.0.6
@@ -31,7 +31,7 @@ class DownloadUrlResolver:
         return f'zulu{version.strip()}-ca-jdk{package_title.strip()}-{platform.value}.zip'
 
 
-class AzulVersionScraper:
+class AzulZuluVersionScraper:
     def __init__(self):
         self.root_url = 'https://www.azul.com/downloads/#zulu'
         self.soup = self._get_soup()
