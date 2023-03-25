@@ -1,5 +1,5 @@
 from enum import Enum
 
 
-class SupportedDistributions(Enum):
+class SupportedDistribution(Enum):
     AZUL = 'Azul'

@@ -24,8 +24,11 @@ class DownloadUrlResolver:
 
     def get_url(self, version: str, platform: Platform) -> str:
         # Example package version: 17.0.6+10  --> 17.0.6
+        return f'{self.download_url_root}/{self.get_file_to_download(version, platform)}'
+
+    def get_file_to_download(self, version: str, platform: Platform) -> str:
         package_title = self.scraper.resolve_version_title(version).split('+')[0]
-        return f'{self.download_url_root}/zulu{version.strip()}-ca-jdk{package_title.strip()}-{platform.value}.zip'
+        return f'zulu{version.strip()}-ca-jdk{package_title.strip()}-{platform.value}.zip'
 
 
 class AzulVersionScraper:
