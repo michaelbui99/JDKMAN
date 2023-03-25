@@ -11,7 +11,6 @@ from util.environment_util import get_platform
 @click.argument("version")
 def install(version: str, distribution: str):
     resolver = ZuluDownloadUrlResolver()
-    click.echo(f'Installing {distribution} {version} from {resolver.get_url(version, get_platform())}')
     manager = JdkManager()
 
     result = manager.install_new_jdk_version(version=version, distribution=SupportedDistribution(distribution))

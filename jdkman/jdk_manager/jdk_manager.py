@@ -1,4 +1,5 @@
 import os
+import traceback
 from enum import Enum
 from pathlib import Path
 from .config_handler import ConfigHandler, Config
@@ -20,13 +21,15 @@ class JdkManager:
 
     def install_new_jdk_version(self, version: str, distribution: SupportedDistribution) -> InstallResult:
         try:
+            print(f'Install target: {distribution.value} {version}')
             config = self.config_handler.parse_config_file()
+            url_resolver = self.download_url_resolver_factory.get_resolver(distribution)
+            version = url_resolver.get_resolved_version(version)
 
             target_path = self.get_target_path(version, distribution, config)
             resolved_target_path = io_util.as_expanded_path(str(target_path.resolve()))
 
             platform = environment_util.get_platform()
-            url_resolver = self.download_url_resolver_factory.get_resolver(distribution)
             zip_file = url_resolver.get_file_to_download(version=version, platform=platform)
 
             if Path.exists(Path(f'{str(resolved_target_path)}/{zip_file.split(".zip")[0]}')):
@@ -34,20 +37,21 @@ class JdkManager:
 
             os.makedirs(target_path, exist_ok=True)
 
-            download_target = str(Path(f'{str(resolved_target_path)}/{zip_file}').absolute())
-            print(f'Downloading JDK to {download_target}')
-            io_util.download_from_url(url_resolver.get_url(version=version, platform=platform),
-                                      download_target)
+            download_url = url_resolver.get_url(version=version, platform=platform)
+            download_to_path = str(Path(f'{str(resolved_target_path)}/{zip_file}').absolute())
+            print(f'Downloading {distribution.value} {version} JDK from {download_url} to {download_to_path}')
+            io_util.download_from_url(download_url, download_to_path)
 
-            print(f'Unzipping {download_target} ...')
+            print(f'Unzipping {download_to_path}')
             io_util.unzip(
-                str(Path(f'{str(resolved_target_path)}/{zip_file}').absolute()),
+                download_to_path,
                 str(Path(f'{str(resolved_target_path)}').absolute()))
 
             os.remove(Path(f'{str(resolved_target_path)}/{zip_file}').absolute())
 
             return InstallResult.SUCCESS
         except Exception:
+            traceback.print_exc()
             return InstallResult.FAIL
 
     def get_target_path(self, version: str, distribution: SupportedDistribution, config: Config) -> Path:
