@@ -6,7 +6,14 @@ setup(
     description='CLI tool for managing multiple JDK versions',
     author='Michael Bui',
     url='https://github.com/michaelbui99/JDKMAN',
-    requires=[],
+    requires=[
+        'beautifulsoup4',
+        'click',
+        'lxml',
+        'requests',
+        'selenium',
+        'webdriver_manager'
+    ],
     packages=find_packages(),
     python_requires=">=3.10",
     entry_points={

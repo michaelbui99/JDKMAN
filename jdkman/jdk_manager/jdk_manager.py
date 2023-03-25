@@ -22,7 +22,7 @@ class JdkManager:
     def install_new_jdk_version(self, version: str, distribution: SupportedDistribution) -> InstallResult:
         try:
             print(f'Install target: {distribution.value} {version}')
-            config = self.config_handler.parse_config_file()
+            config = self.config_handler.parse_config_file(None)
             url_resolver = self.download_url_resolver_factory.get_resolver(distribution)
             version = url_resolver.get_resolved_version(version)
 
