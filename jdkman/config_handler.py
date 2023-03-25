@@ -4,9 +4,10 @@ from os.path import expandvars
 
 
 class Config:
-    def __init__(self, jdk_installations_path: str, current_jdk_version: str):
+    def __init__(self, jdk_installations_path: str, current_jdk_version: str, current_jdk_distribution):
         self.jdk_installations_path = jdk_installations_path
         self.current_jdk_version = current_jdk_version
+        self.current_jdk_distribution = current_jdk_distribution
 
 
 class ConfigHandler:
@@ -18,4 +19,5 @@ class ConfigHandler:
         config_file = open(Path(self.file_name).resolve(), "r")
         data = json.load(config_file)
         return Config(jdk_installations_path=expandvars(data["JDK_INSTALLATIONS_PATH"]),
-                      current_jdk_version=expandvars(data["CURRENT_JDK_VERSION"]))
+                      current_jdk_version=expandvars(data["CURRENT_JDK_VERSION"]),
+                      current_jdk_distribution=expandvars(data["CURRENT_JDK_DISTRIBUTION"]))
