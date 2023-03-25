@@ -5,7 +5,7 @@ from time import sleep
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from util.environment_util import get_platform, Platform
+from jdkman.util.environment_util import get_platform, Platform
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from ..download_url_resolver import DownloadUrlResolver

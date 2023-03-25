@@ -2,9 +2,9 @@ import platform
 
 import click
 
-from cmd.distributions_cmd import distributions
-from cmd.install_cmd import install
-from cmd.configure_cmd import configure
+from jdkman.cmd.distributions_cmd import distributions
+from jdkman.cmd.install_cmd import install
+from jdkman.cmd.configure_cmd import configure
 
 
 @click.group()

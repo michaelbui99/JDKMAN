@@ -1,6 +1,6 @@
 import click
 
-from distributions.supported_distributions import SupportedDistribution
+from jdkman.distributions.supported_distributions import SupportedDistribution
 
 
 @click.command()

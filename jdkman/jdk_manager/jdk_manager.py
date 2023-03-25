@@ -3,9 +3,9 @@ import traceback
 from enum import Enum
 from pathlib import Path
 from .config_handler import ConfigHandler, Config
-from distributions.supported_distributions import SupportedDistribution
-from distributions.download_url_resolver_factory import DownloadUrlResolverFactory
-from util import environment_util, io_util
+from jdkman.distributions.supported_distributions import SupportedDistribution
+from jdkman.distributions.download_url_resolver_factory import DownloadUrlResolverFactory
+from jdkman.util import environment_util, io_util
 
 
 class InstallResult(Enum):

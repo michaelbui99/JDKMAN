@@ -1,8 +1,8 @@
 import click
 import os
 from pathlib import Path
-from util.io_util import as_expanded_path
-from jdk_manager.config_handler import ConfigHandler, Config
+from jdkman.util.io_util import as_expanded_path
+from jdkman.jdk_manager.config_handler import ConfigHandler, Config
 
 
 @click.command('configure')

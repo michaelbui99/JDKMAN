@@ -1,5 +1,5 @@
-from distributions.supported_distributions import SupportedDistribution
-from distributions.azul_zulu.zulu_download_url_resolver import ZuluDownloadUrlResolver as AzulZuluDownloadUrlResolver
+from jdkman.distributions.supported_distributions import SupportedDistribution
+from jdkman.distributions.azul_zulu.zulu_download_url_resolver import ZuluDownloadUrlResolver as AzulZuluDownloadUrlResolver
 from .download_url_resolver import DownloadUrlResolver
 
 

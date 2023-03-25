@@ -1,5 +1,5 @@
 import json
-from util.io_util import as_expanded_path
+from jdkman.util.io_util import as_expanded_path
 from pathlib import Path
 from os.path import expandvars
 
