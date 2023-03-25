@@ -5,10 +5,10 @@ from time import sleep
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-
 from util.environment_util import get_platform, Platform
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
+from ..download_url_resolver import DownloadUrlResolver
 
 
 class UnableToResolveException(Exception):
@@ -17,7 +17,7 @@ class UnableToResolveException(Exception):
         super().__init__(message)
 
 
-class DownloadUrlResolver:
+class ZuluDownloadUrlResolver(DownloadUrlResolver):
     def __init__(self):
         self.download_url_root = 'https://cdn.azul.com/zulu/bin/'
         self.scraper = AzulZuluVersionScraper()
