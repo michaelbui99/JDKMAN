@@ -38,12 +38,17 @@ class AzulZuluVersionScraper:
 
     def resolve_version_title(self, package_version: str) -> str:
         package_version_divs = self.soup.findAll("div", class_='c-dlt__package-version')
+
+        # Try resolve by searching for exact verison
         container_element = None
         for div in package_version_divs:
             if f'Azul Zulu: {package_version}' in div.text:
                 container_element = div.parent
         if container_element:
             return container_element.find('div', class_='c-dlt__package-title').text
+
+        # Try resolving by finding latest
+
         raise UnableToResolveException(f'Could not resolve version title for package version: {package_version}')
 
     def _get_soup(self) -> bs4.BeautifulSoup:
