@@ -8,8 +8,8 @@ from util import environment_util, io_util
 
 
 class InstallResult(Enum):
-    ALREADY_INSTALLED = 'Already Installed',
-    SUCCESS = 'Success',
+    ALREADY_INSTALLED = 'Already Installed'
+    SUCCESS = 'Success'
     FAIL = 'Fail'
 
 

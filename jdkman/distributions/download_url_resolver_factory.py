@@ -4,7 +4,7 @@ from .download_url_resolver import DownloadUrlResolver
 
 
 class DownloadUrlResolverFactory:
-    def get_resolver(distribution: SupportedDistribution) -> DownloadUrlResolver:
+    def get_resolver(self, distribution: SupportedDistribution) -> DownloadUrlResolver:
         match distribution:
             case SupportedDistribution.ZULU:
                 return AzulZuluDownloadUrlResolver()
