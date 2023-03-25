@@ -4,14 +4,14 @@ The goal with JDKMAN is to have a reliable way to switch between JDKs similar to
 # Installation
 
 # Usage
-List all available subcommands by using the --help flag
+List all available commands by using the --help flag
 ```bash
 $ jdkman --help
 ```
 
-See usage for a subcommand by running
+See usage for a command by running
 ```bash
-$ jdkman <SUBCOMMAND> --help #e.g. jdkman install --help
+$ jdkman <COMMAND> --help #e.g. jdkman install --help
 ```
 
 # Configuration

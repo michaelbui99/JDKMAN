@@ -55,4 +55,4 @@ class JdkManager:
             return InstallResult.FAIL
 
     def get_target_path(self, version: str, distribution: SupportedDistribution, config: Config) -> Path:
-        return Path(f'{config.JDK_INSTALLATIONS_PATH}/distributions/{distribution.value}/{version}')
+        return Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/{version}')
