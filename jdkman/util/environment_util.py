@@ -1,4 +1,5 @@
 import platform
+import subprocess
 import sys
 from enum import Enum
 
@@ -30,3 +31,14 @@ def get_platform() -> Platform:
 
         case _:
             return Platform.NOT_SUPPORTED
+
+
+def set_environment_variable(env_key: str, env_val: str, platform: Platform):
+    match platform:
+        case Platform.WINDOWS_X64, Platform.WINDOWS_X32:
+            subprocess.run(['setx', env_key, env_val], )
+            pass
+        case Platform.LINUX_X64, Platform.LINUX_X32:
+            pass
+        case _:
+            return

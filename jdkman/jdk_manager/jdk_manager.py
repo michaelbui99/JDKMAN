@@ -56,3 +56,8 @@ class JdkManager:
 
     def get_target_path(self, version: str, distribution: SupportedDistribution, config: Config) -> Path:
         return Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/{version}')
+
+    def set_java_home(self, jdk_path: str):
+        platform = environment_util.get_platform()
+        environment_util.set_environment_variable("JAVA_HOME", jdk_path, platform)
+
