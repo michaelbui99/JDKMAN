@@ -16,7 +16,7 @@ class DownloadUrlResolver(ABC):
     @abstractmethod
     def get_resolved_version(self, version: str):
         """
-        Returns the actual version used
+        Returns the actual version used. E.g. For Azul Zulu JDK 17.40 could have been resolved to be 17.40.19
         :param version:
         :return:
         """
