@@ -19,6 +19,6 @@ def configure():
         os.makedirs(Path(f'{install_path}/distributions'))
 
     config = Config(jdkman_installation_path=str(install_path), current_jdk_distribution="", current_jdk_version="")
-    config_handler.write_config(config=config, path=config.JDKMAN_INSTALLATION_PATH)
-    config_handler.write_config(config=config, path=as_expanded_path("./"))
+    config_handler.write_config(config=config, path=f'{config.JDKMAN_INSTALLATION_PATH}/jdkman_config.json')
+    config_handler.write_config(config=config, path=as_expanded_path("./jdkman_config.json"))
     print(f'JDKMAN has been configured. Configurations and distributions can be found at: {install_path}')
