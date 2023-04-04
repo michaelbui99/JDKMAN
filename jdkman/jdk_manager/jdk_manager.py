@@ -59,7 +59,7 @@ class JdkManager:
                 download_to_path,
                 str(Path(f'{str(resolved_target_path)}').absolute()))
 
-            os.rename(extracted_jdk_folder_name, f'{str(resolved_target_path)}/{version}')
+            os.rename(extracted_jdk_folder_name, f'{str(resolved_target_path)}/jdk')
             os.remove(Path(f'{str(resolved_target_path)}/{zip_file}').absolute())
 
             return InstallResult.SUCCESS
