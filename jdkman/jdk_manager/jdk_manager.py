@@ -13,9 +13,11 @@ class InstallResult(Enum):
     SUCCESS = 'Success'
     FAIL = 'Fail'
 
+
 class GenericCommandResult(Enum):
     SUCCESS = 'Success'
     FAIL = 'Fail'
+
 
 class JdkManager:
     def __init__(self):
@@ -23,6 +25,12 @@ class JdkManager:
         self.download_url_resolver_factory = DownloadUrlResolverFactory()
 
     def install_new_jdk_version(self, version: str, distribution: SupportedDistribution) -> InstallResult:
+        """
+        Install a new JDK version to <JDKMAN_INSTALLATION_PATH>/distributions/<DISTRIBUTION>/<VERSION>/jdk
+        :param version: Version to install
+        :param distribution: JDK distribution, e.g. Zulu, Coretto etc.
+        :return: InstallResult of either SUCCESS or FAIL
+        """
         try:
             print(f'Install target: {distribution.value} {version}')
             config = self.config_handler.parse_config_file(None)
@@ -60,13 +68,31 @@ class JdkManager:
             return InstallResult.FAIL
 
     def get_target_path(self, version: str, distribution: SupportedDistribution, config: Config) -> Path:
+        """
+        Target installation path
+        :param version: JDK version
+        :param distribution: JDK distribution
+        :param config: JDKMAN config
+        :return:
+        """
         return Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/{version}')
 
-    def set_java_home(self, jdk_path: str):
+    def set_java_home(self, jdk_path: str) -> None:
+        """
+        Set JAVA_HOME environment variable persistently
+        :param jdk_path: path to JDK
+        :return:None
+        """
         platform = environment_util.get_platform()
         environment_util.set_environment_variable("JAVA_HOME", jdk_path, platform)
 
     def use_jdk(self, distribution: SupportedDistribution, version: str) -> GenericCommandResult:
+        """
+        Set JAVA_HOME persistently to specified JDK distribution and version, if the JDK is installed.
+        :param distribution: JDK distribution
+        :param version: JDK version
+        :return: GenericCommandResult of either FAIL or SUCCESS
+        """
         config = self.config_handler.parse_config_file(None)
         if not self.jdk_is_installed(distribution=distribution, version=version, config=config):
             print("JDK is not installed. Aborting...")
@@ -79,6 +105,13 @@ class JdkManager:
             jdk_path=str(Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/jdk').resolve()))
 
     def jdk_is_installed(self, distribution: SupportedDistribution, version: str, config: Config) -> bool:
+        """
+        Check if a specific JDK is installed.
+        :param distribution: JDK distribution
+        :param version: JDK version
+        :param config: JDKMAN config
+        :return: True if installed, else False
+        """
         path = Path(
             f'{io_util.as_expanded_path(config.JDKMAN_INSTALLATION_PATH)}/distributions/{distribution.value}/{version}')
         return path.exists()

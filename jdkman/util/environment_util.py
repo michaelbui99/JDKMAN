@@ -35,13 +35,22 @@ def get_platform() -> Platform:
 
 
 def set_environment_variable(env_key: str, env_val: str, platform: Platform):
+    """
+    Sets an environment variable persistently based on user's OS.
+    If the user is using Windows, then the environment variable will be set through setx.
+    If the user is using a Linux distribution, then writing to ~/.profile will be attempted.
+    :param env_key:
+    :param env_val:
+    :param platform:
+    :return:
+    """
     match platform:
         case Platform.WINDOWS_X64, Platform.WINDOWS_X32:
             result = subprocess.run(['setx', env_key, env_val], capture_output=True, shell=True)
             print(result.stdout)
             print(result.stderr)
         case Platform.LINUX_X64, Platform.LINUX_X32:
-            with open(os.path.expanduser("~/.bashrc"), "a") as bashrc:
-                bashrc.write(f'export {env_key}={env_val}')
+            with open(os.path.expanduser("~/.profile"), "a") as profile:
+                profile.write(f'export {env_key}={env_val}')
         case _:
             return

@@ -19,6 +19,15 @@ class ConfigHandler:
         self.config: Config = self.parse_config_file(None)
 
     def parse_config_file(self, path: str | None) -> Config:
+        """
+        Parses Config from file.
+
+        If None is passed, then jdkman_config.json located at package root will be read first to find JDKMAN installation path.
+        If JDKMAN_INSTALLATION_PATH has been configured, then jdkman_config.json at JDKMAN installation path will be parsed.
+
+        :param path:path to file to parse Config from.
+        :return:Config
+        """
         if not path:
             path = self.file_name
         # Search local config file for installation path
@@ -42,6 +51,12 @@ class ConfigHandler:
                               current_jdk_distribution=expandvars(principal_data["CURRENT_JDK_DISTRIBUTION"]))
 
     def write_config(self, config: Config, path: str | None) -> None:
+        """
+        Writes config to jdkman_config.json both at packge root and at JDKMAN installation path.
+        :param config:Updated configurations to write
+        :param path:Path to jdkman_config.json to write to. If None is passed, then the jdkman_config.json at package root will be read first to locate the JDKMAN installation path.
+        :return: None
+        """
         if not path:
             path = self.file_name
         if not os.path.exists(path):
