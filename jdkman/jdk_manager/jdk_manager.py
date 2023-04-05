@@ -84,7 +84,8 @@ class JdkManager:
         :return:None
         """
         platform = environment_util.get_platform()
-        environment_util.set_environment_variable("JAVA_HOME", jdk_path, platform)
+        environment_util.set_environment_variable("JAVA_HOME", jdk_path, platform, exact=False)
+        environment_util.set_environment_variable("PATH", f'$PATH:{jdk_path}/bin', platform, exact=True)
 
     def use_jdk(self, distribution: SupportedDistribution, version: str) -> GenericCommandResult:
         """
@@ -101,8 +102,13 @@ class JdkManager:
         config.CURRENT_JDK_DISTRIBUTION = distribution.value
         config.CURRENT_JDK_VERSION = version
         self.config_handler.write_config(config, None)
-        self.set_java_home(
-            jdk_path=str(Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/jdk').resolve()))
+        try:
+            self.set_java_home(
+                jdk_path=str(Path(f'{config.JDKMAN_INSTALLATION_PATH}/distributions/{distribution.value}/{version}/jdk').resolve()))
+            return GenericCommandResult.SUCCESS
+        except Exception:
+            traceback.print_exc()
+            return GenericCommandResult.FAIL
 
     def jdk_is_installed(self, distribution: SupportedDistribution, version: str, config: Config) -> bool:
         """

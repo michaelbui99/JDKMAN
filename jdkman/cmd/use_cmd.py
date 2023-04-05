@@ -15,4 +15,4 @@ def use(version: str, distribution: str):
         case GenericCommandResult.FAIL:
             click.echo(f'Failed to use JDK {distribution} {version}')
         case GenericCommandResult.SUCCESS:
-            click.echo(f'{distribution} {version}')
+            click.echo(f'Now using {distribution} {version}. Please restart your terminal instances')
